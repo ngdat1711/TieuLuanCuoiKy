@@ -165,7 +165,41 @@ public class quanLy {
         }
     }
 
-    //hàm sắp xếp tan8ng theo giá
+    // hàm đổi vị trí
+    void doiViTri(String tam1, int tam2, double tam3, Date tam4, node current, node index) {
+        // đổi loại hàng hoá
+        tam1 = current.loai;
+        current.loai = index.loai;
+        index.loai = tam1;
+
+        // đổi chỗ mã hàng
+        tam2 = current.maHang;
+        current.maHang = index.maHang;
+        index.maHang = tam2;
+        
+        // đổi chỗ tên hàng hoá
+        tam1 = current.ten;
+        current.ten = index.ten;
+        index.ten = tam1;
+        
+        // đổi chỗ giá nhập hàng hoá
+        tam3 = current.giaNhap;
+        current.giaNhap = index.giaNhap;
+        index.giaNhap = tam3;
+        
+        // đổi chỗ số lượng trong kho
+        tam2 = current.soLuongTrongKho;
+        current.soLuongTrongKho = index.soLuongTrongKho;
+        index.soLuongTrongKho = tam2;
+        
+        // đổi chỗ ngày nhập hàng
+        tam4 = current.ngayNhapKho;
+        current.ngayNhapKho = index.ngayNhapKho;
+        index.ngayNhapKho = tam4;
+
+    }
+
+    //hàm sắp xếp tăng theo giá
     void tangDanTheoGia() {
         node current = head;
         node index = null;
@@ -191,6 +225,173 @@ public class quanLy {
         System.out.println("+ Sắp xếp thành công.");
     }
 
+    // sắp xếp giảm dần theo ngày
+    void giamTheoNgay() {
+        node current = head;
+        node index = null;
+        String tam1 = null;
+        int tam2 = 0;
+        double tam3 = 0;
+        Date tam4 = null;
+        System.out.println("- Hàng hoá giảm dần theo ngày: ");
+        while (current != null) {
+            index = current.next;
+            while (index != null) {
+                if ((current.ngayNhapKho).compareTo(index.ngayNhapKho) < 0) {
+                    doiViTri(tam1, tam2, tam3, tam4, current, index);
+                }
+                index = index.next;
+            }
+            current = current.next;
+        }
+        System.out.println("====Sắp xếp thành công====");
+    }
+
+    // sắp xếp tăng dần theo ngày nhập
+    void tangTheoNgay() {
+        node current = head;
+        node index = null;
+        String tam1 = null;
+        int tam2 = 0;
+        double tam3 = 0;
+        Date tam4 = null;
+        System.out.println("- Hàng hoá tăng dần theo ngày: ");
+        while (current != null) {
+            index = current.next;
+            while (index != null) {
+                if ((current.ngayNhapKho).compareTo(index.ngayNhapKho) > 0) {
+                    doiViTri(tam1, tam2, tam3, tam4, current, index);
+                }
+                index = index.next;
+            }
+            current = current.next;
+        }
+        System.out.println("====Sắp xếp thành công====");
+    }
+
+    // sắp xếp theo loại;
+    void xepTheoLoai() {
+        node current = head;
+        node index = null;
+        String tam1 = null;
+        int tam2 = 0;
+        double tam3 = 0;
+        Date tam4 = null;
+        while (current != null) {
+            index = current.next;
+            while (index != null) {
+                if ((current.loai).compareTo(index.loai) > 0) {
+                    doiViTri(tam1, tam2, tam3, tam4, current, index);
+                }
+                index = index.next;
+            }
+            current = current.next;
+        }
+    }
+
+    // Sắp xếp theo loại hàng hoá và tăng dần theo ngày nhập
+    void loaiVaNgayTang() {
+        xepTheoLoai();
+        node current = head;
+        node index = null;
+        String tam1 = null;
+        int tam2 = 0;
+        double tam3 = 0;
+        Date tam4 = null;
+        System.out.println("- Sắp xếp hàng hoá theo loại hàng và ngày nhập tăng dần: ");
+        while (current != null) {
+            index = current.next;
+            while (index != null && current.loai == index.loai) {
+                if ((current.ngayNhapKho).compareTo(index.ngayNhapKho) > 0) {
+                    doiViTri(tam1, tam2, tam3, tam4, current, index);
+                }
+                index = index.next;
+            }
+            current = current.next;
+        }
+        System.out.println("====Sắp xếp thành công====");
+    }
+
+    // sắp xếp theo loại và ngày giảm dần
+    void loaiVaNgayGiam() {
+        xepTheoLoai();
+        node current = head;
+        node index = null;
+        String tam1 = null;
+        int tam2 = 0;
+        double tam3 = 0;
+        Date tam4 = null;
+        System.out.println("- Sắp xếp hàng hoá theo loại và ngày nhập giảm dần: ");
+        while (current != null) {
+            index = current.next;
+            while (index != null && current.loai == index.loai) {
+                if ((current.ngayNhapKho).compareTo(index.ngayNhapKho) < 0) {
+                    doiViTri(tam1, tam2, tam3, tam4, current, index);
+                }
+                index = index.next;
+            }
+            current = current.next;
+        }
+        System.out.println("====Sắp xếp thành công====");
+    }
+
+    // sắp xếp theo loại và giá tăng
+    void loaiVaGiaTang() {
+        xepTheoLoai();
+        node current = head;
+        node index = null;
+        String tam1 = null;
+        int tam2 = 0;
+        double tam3 = 0;
+        Date tam4 = null;
+        System.out.println("- Sắp xếp hàng hoá theo loại và giá nhập tăng dần: ");
+        while (current != null) {
+        index = current.next;
+        while (index != null && current.loai == index.loai){
+            if (current.giaNhap > index.giaNhap) {
+                doiViTri(tam1, tam2, tam3, tam4, current, index);
+            }
+            index = index.next;
+        }
+        current = current.next;
+    }
+     System.out.println("====Sắp xếp thành công====");
+}
+
+    // sắp xếp theo loại và giá giảm
+    void loaiVaGiaGiam() {
+        xepTheoLoai();
+        node current = head;
+        node index = null;
+        String tam1 = null;
+        int tam2 = 0;
+        double tam3 = 0;
+        Date tam4 = null;
+        System.out.println("- Sắp xếp hàng hoá theo loại và giá nhập giảm dần: ");
+        while (current != null) {
+            index = current.next;
+            while (index != null && current.loai == index.loai) {
+                if (current.giaNhap < index.giaNhap) {
+                    doiViTri(tam1, tam2, tam3, tam4, current, index);
+                }
+                index = index.next;
+            }
+            current = current.next;
+        }
+        System.out.println("+ Sắp xếp thành công.");
+    }
+
+    // thống kê tổng số lượng hàng hoá
+    void tongSL() {
+        int tong = 0;
+        node current = head;
+        while (current != null) {
+            tong = tong + current.soLuongTrongKho;
+            current = current.next;
+        }
+        System.out.println("- Tổng số lượng hàng hoá trong kho là: " + tong);
+    }
+
     // thống kê tổng giá trị nhập kho
     void tongGT() {
         double tongGT = 0;
@@ -202,7 +403,7 @@ public class quanLy {
         System.out.printf("- Tổng giá trị nhập của kho là: %.1f đồng\n", tongGT);
     }
 
-    // thống kê số lượng từng loại hàng hoá
+    // thống kê số lượng từng loại
     void soLuong() {
         System.out.println("- Số lượng hàng hoá mỗi loại:");
         node current = head;
@@ -212,7 +413,7 @@ public class quanLy {
                 soLuong = soLuong + current.soLuongTrongKho;
                 current = current.next;
                 if (current.next.next == null) {
-                    System.out.printf("+ Tổng số lượng hàng hoá của %s là: %d\n ", current.loai,(soLuong + current.soLuongTrongKho + current.next.soLuongTonKho));
+                    System.out.printf("+ Tổng số lượng hàng hoá của %s là: %d\n ", current.loai,(soLuong + current.soLuongTrongKho + current.next.soLuongTrongKho));
                     return;
                 }
             }
